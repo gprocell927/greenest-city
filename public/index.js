@@ -1,7 +1,7 @@
 const city = document.querySelector('.city-input')
 const state = document.querySelector('.state-input')
 const zipcode = document.querySelector('.zipcode-input')
-let myKey
+let gabiKey
 
 document.querySelector('.zipcode-input').addEventListener('change', ()=> {
   if(zipcode.value.length > 0){
@@ -45,7 +45,7 @@ function getMyKey(){
     },
   })
     .then(res => res.json())
-    .then(res => res.myKey)
+    .then(res => gabiKey = res.myKey)
 }
 
 window.onload = getMyKey()
