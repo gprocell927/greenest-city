@@ -23,18 +23,18 @@ document.querySelector('.state-input').addEventListener('change', () => {
 
 document.querySelector('.location-form').addEventListener('submit', (e) => {
   e.preventDefault()
-  const server = ('http://localhost:3000/key')
+  const server = (`http://developer.nrel.gov/api/solar/open_pv/installs/index?api_key=${gabiKey}&state=${state.value}`)
   fetch(server, {
     method: 'GET',
     headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'text/plain',
     'Accept': 'application/json',
     },
   })
     .then(res => res.json())
     .then(res => console.log(res))
-
 })
+
 function getMyKey(){
   const server = ('http://localhost:3000/key')
   fetch(server, {
