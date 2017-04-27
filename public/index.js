@@ -1,6 +1,7 @@
 const city = document.querySelector('.city-input')
 const state = document.querySelector('.state-input')
 const zipcode = document.querySelector('.zipcode-input')
+let myKey
 
 document.querySelector('.zipcode-input').addEventListener('change', ()=> {
   if(zipcode.value.length > 0){
@@ -22,10 +23,8 @@ document.querySelector('.state-input').addEventListener('change', () => {
 
 document.querySelector('.location-form').addEventListener('submit', (e) => {
   e.preventDefault()
-  console.log(city.value)
-  console.log(state.value)
-  console.log(zipcode.value)
-  fetch(`https://api.data.gov/nrel/alt-fuel-stations/v1.json?limit=1&api_key=${config.CLIENT_ID}`, {
+  const server = ('http://localhost:3000/key')
+  fetch(server, {
     method: 'GET',
     headers: {
     'Content-Type': 'application/json',
@@ -36,3 +35,17 @@ document.querySelector('.location-form').addEventListener('submit', (e) => {
     .then(res => console.log(res))
 
 })
+function getMyKey(){
+  const server = ('http://localhost:3000/key')
+  fetch(server, {
+    method: 'GET',
+    headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    },
+  })
+    .then(res => res.json())
+    .then(res => res.myKey)
+}
+
+window.onload = getMyKey()

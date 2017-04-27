@@ -1,21 +1,36 @@
 const express = require('express')
 const md5 = require('md5')
 const app = express()
+const cors = require('express-cors')
 const api_key = require('./config.env') // refer to as api_key.API_KEY
 const bodyParser = require('body-parser')
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'))
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*') //adds header for site we wish to allow to connect
+
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next() // passes to next layer of middleware
+})
+
 
 app.set('port', process.env.PORT || 3000)
 app.locals.title = "The Greenest City in the World"
 app.locals.locations = { beloit: 'my hometown'}
+app.locals.myKey = api_key.API_KEY
 
+//Get main HTML page
 app.get('/', (request, response) => {
   fs.readFile(`${__dirname}/index.html`, (err, file) => {
     response.send(file)
   })
+})
+
+app.get('/key', (request, response) => {
+  response.send({ myKey: app.locals.myKey })
 })
 
 app.get('/api/locations/:id', (request, response) => {
