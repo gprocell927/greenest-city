@@ -55,7 +55,7 @@ document.querySelector('.location-form').addEventListener('submit', (e) => {
 //     },
 //     body: JSON.stringify({
 //       id: Date.now(),
-         content: dataDisplay.innerHTML.value(),
+    //     content: dataDisplay.innerHTML.value(),
 //     })
 //   })
 //
